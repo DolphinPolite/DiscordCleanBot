@@ -1,3 +1,4 @@
+
 import discord
 from discord import Embed
 from discord.ui import Button, View
@@ -5,6 +6,7 @@ from discord.ext import commands, tasks
 from itertools import cycle 
 from dotenv import load_dotenv
 import os
+from function import Cleaner, Starter
 
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 
@@ -30,10 +32,10 @@ async def on_ready():
     except Exception as e:
         print("An error with syncing application commands has occurred", e)
 
-@bot.tree.command(name="Clean", description="You can fight against your friend or something")
-async def pvp(interaction: discord.Interaction, player2: discord.Member):
-    channel = bot.get_channel(interaction.channel.id)
+@bot.tree.command(name="clean", description="You get recommendation about cleaning")
+async def pvp(interaction: discord.Interaction):
+    await interaction.response.defer()
 
-    await interaction.response.send_message(f"You invited <@{player2.id}> to play.", ephemeral=True, view=))
+    await Starter(interaction=interaction)
 
 bot.run(os.getenv("TOKEN"))
